@@ -34,6 +34,7 @@ add_library(ppbus_core STATIC
   src/core/csv.cpp
   src/core/error.cpp
   src/core/geo.cpp
+  src/core/network.cpp
   src/core/utf8.cpp
   src/core/version.cpp
 )
@@ -56,6 +57,7 @@ if(PPBUS_BUILD_TESTS)
     tests/test_config.cpp
     tests/test_csv.cpp
     tests/test_geo.cpp
+    tests/test_network.cpp
     tests/test_utf8.cpp
     tests/test_version.cpp
   )
