@@ -36,6 +36,7 @@ add_library(ppbus_core STATIC
   src/core/geo.cpp
   src/core/network.cpp
   src/core/utf8.cpp
+  src/core/validate.cpp
   src/core/version.cpp
 )
 target_include_directories(ppbus_core PUBLIC src)
@@ -59,6 +60,7 @@ if(PPBUS_BUILD_TESTS)
     tests/test_geo.cpp
     tests/test_network.cpp
     tests/test_utf8.cpp
+    tests/test_validate.cpp
     tests/test_version.cpp
   )
   target_link_libraries(ppbus_tests PRIVATE ppbus_core doctest)

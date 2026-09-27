@@ -53,6 +53,8 @@ struct Pattern {
 };
 
 struct Network {
+    std::string stops_source;  // file names, for messages
+    std::string lines_source;
     std::vector<Stop> stops;
     std::vector<Station> stations;
     std::vector<Pattern> patterns;

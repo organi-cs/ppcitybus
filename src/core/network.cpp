@@ -233,6 +233,8 @@ NetworkError::NetworkError(std::vector<std::string> messages)
 
 Network build_network(const CsvTable& stops, const CsvTable& lines, const Config& config) {
     Network net;
+    net.stops_source = stops.source;
+    net.lines_source = lines.source;
     std::vector<std::string> errors;
     load_stops(stops, net, errors);
     load_lines(lines, config, net, errors);
