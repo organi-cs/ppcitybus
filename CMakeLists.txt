@@ -67,4 +67,8 @@ if(PPBUS_BUILD_TESTS)
   ppbus_warnings(ppbus_tests)
 
   add_test(NAME unit COMMAND ppbus_tests)
+
+  # The sample network must load and stay free of validation warnings.
+  add_test(NAME sample_data_validates COMMAND ppbus validate --data ${CMAKE_SOURCE_DIR}/data/sample)
+  set_tests_properties(sample_data_validates PROPERTIES FAIL_REGULAR_EXPRESSION "warning:")
 endif()
