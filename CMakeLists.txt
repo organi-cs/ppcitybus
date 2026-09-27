@@ -30,6 +30,7 @@ function(ppbus_warnings target)
 endfunction()
 
 add_library(ppbus_core STATIC
+  src/core/geo.cpp
   src/core/version.cpp
 )
 target_include_directories(ppbus_core PUBLIC src)
@@ -48,6 +49,7 @@ if(PPBUS_BUILD_TESTS)
 
   add_executable(ppbus_tests
     tests/main.cpp
+    tests/test_geo.cpp
     tests/test_version.cpp
   )
   target_link_libraries(ppbus_tests PRIVATE ppbus_core doctest)
