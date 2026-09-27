@@ -30,6 +30,7 @@ function(ppbus_warnings target)
 endfunction()
 
 add_library(ppbus_core STATIC
+  src/core/csv.cpp
   src/core/geo.cpp
   src/core/utf8.cpp
   src/core/version.cpp
@@ -50,6 +51,7 @@ if(PPBUS_BUILD_TESTS)
 
   add_executable(ppbus_tests
     tests/main.cpp
+    tests/test_csv.cpp
     tests/test_geo.cpp
     tests/test_utf8.cpp
     tests/test_version.cpp
