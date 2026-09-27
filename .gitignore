@@ -1,0 +1,8 @@
+/build*/
+/out/
+compile_commands.json
+.vs/
+.vscode/
+*.geojson
+!tests/**/*.geojson
+__pycache__/
