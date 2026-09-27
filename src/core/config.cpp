@@ -112,9 +112,9 @@ Config parse_config(std::string_view text, const std::string& source) {
 
 Config load_config_file(const std::filesystem::path& path) {
     std::ifstream in(path, std::ios::binary);
-    if (!in) throw DataError(path.u8string(), 0, "cannot open file");
+    if (!in) throw DataError(path.generic_u8string(), 0, "cannot open file");
     const std::string text{std::istreambuf_iterator<char>(in), std::istreambuf_iterator<char>()};
-    return parse_config(text, path.u8string());
+    return parse_config(text, path.generic_u8string());
 }
 
 }  // namespace ppbus

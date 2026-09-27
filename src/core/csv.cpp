@@ -167,9 +167,9 @@ CsvTable parse_csv(std::string_view text, std::string source) {
 
 CsvTable read_csv_file(const std::filesystem::path& path) {
     std::ifstream in(path, std::ios::binary);
-    if (!in) throw DataError(path.u8string(), 0, "cannot open file");
+    if (!in) throw DataError(path.generic_u8string(), 0, "cannot open file");
     const std::string text{std::istreambuf_iterator<char>(in), std::istreambuf_iterator<char>()};
-    return parse_csv(text, path.u8string());
+    return parse_csv(text, path.generic_u8string());
 }
 
 }  // namespace ppbus

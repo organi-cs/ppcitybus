@@ -100,7 +100,7 @@ TEST_CASE("read_csv_file reads from disk and reports missing files") {
         out << "id,name\r\nS1,A\r\n";
     }
     const auto t = read_csv_file(path);
-    CHECK(t.source == path.u8string());
+    CHECK(t.source == path.generic_u8string());
     REQUIRE(t.rows.size() == 1);
     CHECK(t.rows[0].fields[1] == "A");
     std::filesystem::remove(path);
