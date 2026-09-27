@@ -31,6 +31,7 @@ endfunction()
 
 add_library(ppbus_core STATIC
   src/core/csv.cpp
+  src/core/error.cpp
   src/core/geo.cpp
   src/core/utf8.cpp
   src/core/version.cpp

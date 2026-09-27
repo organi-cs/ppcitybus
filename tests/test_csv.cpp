@@ -5,7 +5,7 @@
 
 #include "core/csv.hpp"
 
-using ppbus::CsvError;
+using ppbus::DataError;
 using ppbus::parse_csv;
 using ppbus::read_csv_file;
 
@@ -14,7 +14,7 @@ namespace {
 std::string error_of(std::string_view text) {
     try {
         parse_csv(text, "t.csv");
-    } catch (const CsvError& e) {
+    } catch (const DataError& e) {
         return e.what();
     }
     return "no error";
@@ -105,5 +105,5 @@ TEST_CASE("read_csv_file reads from disk and reports missing files") {
     CHECK(t.rows[0].fields[1] == "A");
     std::filesystem::remove(path);
 
-    CHECK_THROWS_AS(read_csv_file(path), CsvError);
+    CHECK_THROWS_AS(read_csv_file(path), DataError);
 }

@@ -10,11 +10,6 @@ namespace ppbus {
 
 namespace {
 
-std::string format_error(const std::string& source, std::size_t line, const std::string& message) {
-    if (line == 0) return source + ": " + message;
-    return source + ":" + std::to_string(line) + ": " + message;
-}
-
 class Parser {
 public:
     Parser(std::string_view text, const std::string& source) : text_(text), source_(source) {}
@@ -50,7 +45,7 @@ public:
 
 private:
     [[noreturn]] void fail(std::size_t line, const std::string& message) const {
-        throw CsvError(source_, line, message);
+        throw DataError(source_, line, message);
     }
 
     bool at_end() const { return pos_ >= text_.size(); }
@@ -152,9 +147,6 @@ private:
 
 }  // namespace
 
-CsvError::CsvError(const std::string& source, std::size_t line, const std::string& message)
-    : std::runtime_error(format_error(source, line, message)) {}
-
 std::optional<std::size_t> CsvTable::column(std::string_view name) const {
     const auto it = std::find(header.begin(), header.end(), name);
     if (it == header.end()) return std::nullopt;
@@ -168,14 +160,14 @@ CsvTable parse_csv(std::string_view text, std::string source) {
     const std::size_t bad = find_invalid_utf8(text);
     if (bad != std::string_view::npos) {
         const auto line = 1 + static_cast<std::size_t>(std::count(text.begin(), text.begin() + static_cast<std::ptrdiff_t>(bad), '\n'));
-        throw CsvError(source, line, "not valid UTF-8; save the file as 'CSV UTF-8'");
+        throw DataError(source, line, "not valid UTF-8; save the file as 'CSV UTF-8'");
     }
     return Parser(text, source).run();
 }
 
 CsvTable read_csv_file(const std::filesystem::path& path) {
     std::ifstream in(path, std::ios::binary);
-    if (!in) throw CsvError(path.u8string(), 0, "cannot open file");
+    if (!in) throw DataError(path.u8string(), 0, "cannot open file");
     const std::string text{std::istreambuf_iterator<char>(in), std::istreambuf_iterator<char>()};
     return parse_csv(text, path.u8string());
 }
